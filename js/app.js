@@ -33,13 +33,24 @@ function createNav(){
         list = document.createElement('li');
 
         //fill ul with list
-        list.innerHTML = `<a class="menu__link" href="#${sec.getAttribute('id')}">${sec.getAttribute('data-nav')}</a>`;
+        list.innerHTML = `<a class="menu__link">${sec.getAttribute('data-nav')}</a>`;
 
         navList.insertAdjacentElement('beforeend',list)
+        secid =sec.id;
+        console.log(secid);
+
+       
+        list.addEventListener('click', function(){
+            sec.scrollIntoView({behavior: "smooth"});
+
+        })
+
+
 
     }
 }
 createNav();
+
 
 
 
@@ -52,19 +63,28 @@ function activeViewPort(){
     sections.forEach(function(sec){
         //get distance from top (in px)
         const distanceUp = sec.getBoundingClientRect().top;
+
+        //define corrosponding id to the section in order to retrive nav
+        secid= sec.id.slice(7,8) -1 ;
+        
         
 
         //add active class if the top distace is between 0px and 100px, otherwise it will be removed
         if(distanceUp>=0 && distanceUp<300 ){
             sec.classList.add('your-active-class');
+            navList.childNodes[secid].style.backgroundColor="grey";
            
         }
-        else{sec.classList.remove('your-active-class')}
+        else{sec.classList.remove('your-active-class')
+        navList.childNodes[secid].style.backgroundColor="unset";
+        }
         
 
     })
     
 }
+
+
 
 
 
